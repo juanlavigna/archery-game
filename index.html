@@ -9,6 +9,8 @@
     var pincel = pantalla.getContext("2d");        
     pincel.fillStyle = "lightgrey";
     pincel.fillRect(0,0,600,400); 
+    let xRandom;
+    let yRandom;
 
     function dibujarCircunferencia(x,y,radio, color){
         pincel.fillStyle = color;
@@ -18,9 +20,7 @@
     }    
 
     function limpiarPantalla(){
-
         pincel.clearRect(0,0,600,400);
-
     }
 
     function dibujarBlanco(x,y){
@@ -32,29 +32,31 @@
     function sortearPosicion(max){
         return Math.floor(Math.random()*max)
     }
-
-    xRandom = sortearPosicion(600)
-    yRandom = sortearPosicion(400)
-
-    dibujarBlanco(xRandom,yRandom)
     
-/*
-    var x = 0
-    var sentido = 1
-
     function actualizarPantalla(){
-        limpiarPantalla();
-      if (x>600){
-            sentido = -1
-        }else if(x<0){
-            sentido = 1;
-        }
-        disenharCircunferencia(x,20,10);
-        x = x + sentido;
 
+        limpiarPantalla()
+
+        xRandom = sortearPosicion(600)
+        yRandom = sortearPosicion(400)
+
+        dibujarBlanco(xRandom,yRandom)
     }
 
-    setInterval(actualizarPantalla,1);
-*/
+    setInterval(actualizarPantalla, 1000)
+
+    function disparo(event){
+        let x = event.pageX - pantalla.offsetLeft;
+        let y = event.pageY - pantalla.offsetTop;
+
+        if((x < xRandom + 10) &&
+           (x > xRandom - 10) &&
+           (y < yRandom + 10) &&
+           (y > yRandom - 10)){
+            alert("usted acertó")
+           }   
+    }
+
+    pantalla.onclick = disparo;
 
 </script> 
